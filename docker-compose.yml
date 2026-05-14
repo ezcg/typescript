@@ -38,26 +38,26 @@ services:
       - "./express_standard:/var/app/current"
     command: sh -c "bash /var/app/current/docker_init.sh"
 
-#  exp_type:
-#    container_name: exp_type
-#    hostname: exp_type
-#    depends_on:
-#      - typedb
-#    build:
-#      context: express_typescript
-#      dockerfile: ../Dockerfile.ubuntu
-#    working_dir: /var/app/current
-#    env_file:
-#      - ./.env
-#    ports:
-#      - "${EXP_TYPE_HOST_PORT}:${EXP_TYPE_CONTAINER_PORT}"
-#      - "${EXP_TYPE_HOST_DEBUG_PORT}:${EXP_TYPE_CONTAINER_DEBUG_PORT}"
-#    stdin_open: true
-#    tty: true
-#    volumes:
-#      - "./express_typescript:/var/app/current"
-#    command: sh -c "bash /var/app/current/docker_init.sh"
-#
+  exp_type:
+    container_name: exp_type
+    hostname: exp_type
+    depends_on:
+      - typedb
+    build:
+      context: express_typescript
+      dockerfile: ../Dockerfile.ubuntu
+    working_dir: /var/app/current
+    env_file:
+      - ./.env
+    ports:
+      - "${EXP_TYPE_HOST_PORT}:${EXP_TYPE_CONTAINER_PORT}"
+      - "${EXP_TYPE_HOST_DEBUG_PORT}:${EXP_TYPE_CONTAINER_DEBUG_PORT}"
+    stdin_open: true
+    tty: true
+    volumes:
+      - "./express_typescript:/var/app/current"
+    command: sh -c "bash /var/app/current/docker_init.sh"
+
 #  fas_type:
 #    container_name: fas_type
 #    hostname: fas_type

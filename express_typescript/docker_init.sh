@@ -26,4 +26,7 @@ printf "\n\nRunning 'npm run-script startdev'\n\n"
 # is created, so wait 5 seconds before starting node server otherwise
 # connection refused from db error
 sleep 5
+if [ ! -d node_modules ]; then
+  npm install
+fi
 exec npm run-script startdev

@@ -5,3 +5,5 @@
 /.idea/
 /.agents/
 /.codex/
+/express_typescript/dist/
+/express_typescript/node_modules/

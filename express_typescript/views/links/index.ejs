@@ -1,6 +1,6 @@
 <!doctype html>
 <html lang="en">
-  <%-include("../partials/head.ejs", {pageTitle:"Manage Links"});%>
+<%-include("../partials/head.ejs", {pageTitle:"Manage Links"});%>
   <body>
     <main class="page">
       <section class="panel">
@@ -31,7 +31,6 @@
           <% links.forEach(function(link) { %>
             <article class="link-card">
               <form action="/links/<%= link.id %>" method="post" class="link-form">
-                <input type="hidden" name="id" value="<%= link.id %>" />
                 <label>
                   <span>Link name</span>
                   <input type="text" name="linkName" maxlength="255" value="<%= link.linkName || '' %>" />
