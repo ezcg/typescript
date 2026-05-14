@@ -1,0 +1,7 @@
+/mysql/is_initialized
+/mysql/dbdata/
+/express_standard/node_modules/
+/*_dc_build.log
+/.idea/
+/.agents/
+/.codex/

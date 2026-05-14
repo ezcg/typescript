@@ -1,0 +1,48 @@
+FROM ubuntu:24.04
+
+# Avoid prompts from apt
+ENV DEBIAN_FRONTEND=noninteractive
+
+# ubuntu24 adds user 'ubuntu' with uid 1000, uid 1000 is what docker uses and setting user 'ubuntu' messes things up
+# https://askubuntu.com/questions/1513927/ubuntu-24-04-docker-images-now-includes-user-ubuntu-with-uid-gid-1000
+RUN touch /var/mail/ubuntu && chown ubuntu /var/mail/ubuntu && userdel -r ubuntu
+
+# Install the necessary dependencies and MySQL
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vim \
+    net-tools \
+    curl \
+    wget \
+    build-essential \
+    lsof \
+    mysql-client \
+    python-is-python3 \
+    openssh-client \
+    sudo \
+    lsb-release \
+    ca-certificates \
+    apt-transport-https \
+    software-properties-common \
+    mysql-server-8.0 \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
+
+# ERROR 2003 (HY000): Can't connect to MySQL server on 'db:3306'
+# Allow connections from any host (required for Docker networking)
+RUN sed -i "s/^bind-address/#bind-address/g" "/etc/mysql/mysql.conf.d/mysqld.cnf"
+
+# fix error when trying to start mysql
+# ERROR "warning: cannot change directory to /nonexistent: No such file or directory"
+# https://serverfault.com/questions/755763/mysql-nonexistent-home-vs-no-directory-logging-in-with-home/942422
+# "assign a home directory to the mysql user"
+RUN usermod -d /var/lib/mysql/ mysql
+WORKDIR /mysql
+
+RUN mkdir -p /var/run/mysqld && chown mysql:mysql /var/run/mysqld && chmod 777 /var/run/mysqld
+
+COPY mysql-entrypoint.sh /usr/local/bin/mysql-entrypoint.sh
+RUN chmod +x /usr/local/bin/mysql-entrypoint.sh
+
+ENTRYPOINT ["/usr/local/bin/mysql-entrypoint.sh"]
+
+
