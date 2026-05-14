@@ -7,3 +7,5 @@
 /.codex/
 /express_typescript/dist/
 /express_typescript/node_modules/
+/fastify_typescript/dist/
+/fastify_typescript/node_modules/

@@ -58,22 +58,22 @@ services:
       - "./express_typescript:/var/app/current"
     command: sh -c "bash /var/app/current/docker_init.sh"
 
-#  fas_type:
-#    container_name: fas_type
-#    hostname: fas_type
-#    depends_on:
-#      - typedb
-#    build:
-#      context: fastify_typescript
-#      dockerfile: ../Dockerfile.ubuntu
-#    working_dir: /var/app/current
-#    env_file:
-#      - ./.env
-#    ports:
-#      - "${FAS_TYPE_HOST_PORT}:${FAS_TYPE_CONTAINER_PORT}"
-#      - "${FAS_TYPE_HOST_DEBUG_PORT}:${FAS_TYPE_CONTAINER_DEBUG_PORT}"
-#    stdin_open: true
-#    tty: true
-#    volumes:
-#      - "./fastify_typescript:/var/app/current"
-#    command: sh -c "bash /var/app/current/docker_init.sh"
+  fas_type:
+    container_name: fas_type
+    hostname: fas_type
+    depends_on:
+      - typedb
+    build:
+      context: fastify_typescript
+      dockerfile: ../Dockerfile.ubuntu
+    working_dir: /var/app/current
+    env_file:
+      - ./.env
+    ports:
+      - "${FAS_TYPE_HOST_PORT}:${FAS_TYPE_CONTAINER_PORT}"
+      - "${FAS_TYPE_HOST_DEBUG_PORT}:${FAS_TYPE_CONTAINER_DEBUG_PORT}"
+    stdin_open: true
+    tty: true
+    volumes:
+      - "./fastify_typescript:/var/app/current"
+    command: sh -c "bash /var/app/current/docker_init.sh"

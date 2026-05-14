@@ -1,0 +1,61 @@
+<!doctype html>
+<html lang="en">
+<%-include("../partials/head.ejs", {pageTitle:"Manage Links"});%>
+  <body>
+    <main class="page">
+      <section class="panel">
+        <h1>Links</h1>
+
+        <form class="link-form" action="/links" method="post">
+          <h2>Add link</h2>
+          <label>
+            <span>Link name</span>
+            <input type="text" name="linkName" maxlength="255" />
+          </label>
+          <label>
+            <span>URL</span>
+            <input type="text" name="url" maxlength="255" />
+          </label>
+          <button type="submit">Add link</button>
+        </form>
+      </section>
+
+      <section class="panel">
+        <h2>Existing links</h2>
+
+        <% if (links.length === 0) { %>
+          <p class="empty-state">No links found.</p>
+        <% } %>
+
+        <div class="link-list">
+          <% links.forEach(function(link) { %>
+            <article class="link-card">
+              <form action="/links/<%= link.id %>" method="post" class="link-form">
+                <label>
+                  <span>Link name</span>
+                  <input type="text" name="linkName" maxlength="255" value="<%= link.linkName || '' %>" />
+                </label>
+                <label>
+                  <span>URL</span>
+                  <input type="text" name="url" maxlength="255" value="<%= link.url || '' %>" />
+                </label>
+                <div class="actions">
+                  <button type="submit">Update</button>
+                </div>
+              </form>
+
+              <form
+                action="/links/<%= link.id %>/delete"
+                method="post"
+                data-confirm="Delete this link?"
+                class="delete-form"
+              >
+                <button type="submit" class="danger">Delete</button>
+              </form>
+            </article>
+          <% }); %>
+        </div>
+      </section>
+    </main>
+  </body>
+</html>
